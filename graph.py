@@ -29,6 +29,11 @@ class Graph():
             self.array.append(a)
         return self
 
+    def save(self):
+        bstring = self.array_to_binary()
+        with open('graph', 'wb') as f:
+            f.write(bstring.tobytes())
+
     def array_to_binary(self):
         bit_string = BitArray('')
 
@@ -60,10 +65,7 @@ class Graph():
 
         return array
 
-def main():
-    
-    graph = Graph(size=10000)
-
+def test(graph):
     # Test the time it takes to convert to binary
     start = time.time()
     bstring = graph.array_to_binary()
@@ -77,12 +79,21 @@ def main():
     print("-"*20)
     # Make sure they are the same array
     print(graph.array == array)
-   
+
     """
     For 10,000 nodes in the graph:
     array_to_binary time: 15.594651460647583
     binary_to_array tim:  9.157088279724121
     """
+
+def main():
+    
+    graph = Graph(size=10000)
+    # test(graph)
+    
+    graph.save()
+
+   
 
 if __name__ == "__main__":
     main()
